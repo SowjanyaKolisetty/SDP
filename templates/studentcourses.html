@@ -1,0 +1,96 @@
+{% extends 'studenthome.html' %}
+{% block 'body' %}
+<style>
+    h3 {
+        text-align: center;
+        text-decoration: underline;
+        margin-top: 20px; /* Adjusted margin-top for better spacing */
+        margin-bottom: 15px;
+        font-size: 1.8em; /* Increased font size */
+        color: #2196F3; /* Blue */
+    }
+    form {
+        width: 60%;
+        margin: 30px auto; /* Adjusted margin for better alignment */
+        padding: 20px;
+        border: 2px solid #64B5F6; /* Light Blue */
+        border-radius: 8px;
+        background-color: #E3F2FD; /* Lighter Blue */
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #CFD8DC; /* Light Gray */
+    }
+    select, input[type="number"], input[type="text"], input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input[type="submit"].addbutton {
+        background-color: #4CAF50; /* Green */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    input[type="submit"].addbutton:hover {
+        background-color: #388E3C; /* Darker Green */
+    }
+    input[type="submit"].clearbutton {
+        background-color: #EF5350; /* Red */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    input[type="submit"].clearbutton:hover {
+        background-color: #D32F2F; /* Darker Red */
+    }
+</style>
+<h2 align="center" style="color: red">{{msg}}</h2>
+<h3><u>View Courses</u></h3>
+<center>
+    <form method="post" action="{% url 'displaystudentcourses' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label>Academic Year</label></td>
+                <td>
+                    <select name="ay" required>
+                        <option value="">--Select--</option>
+                        <option value="2023-24">2023-24</option>
+                        <option value="2022-23">2022-23</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Semester</label></td>
+                <td>
+                    <select name="sem" required>
+                        <option value="">--Select--</option>
+                        <option value="ODD">ODD</option>
+                        <option value="EVEN">EVEN</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="View" class="addbutton" />
+                    <input type="submit" value="Clear" class="clearbutton" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>
+{% endblock %}

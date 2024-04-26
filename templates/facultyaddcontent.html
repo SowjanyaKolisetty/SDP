@@ -1,0 +1,87 @@
+{% extends 'facultyhome.html' %} 
+{% block 'body' %}
+<style>
+  form {
+    background-color: #FFC107; /* Amber */
+    padding: 20px; /* Decreased padding */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Decreased width */
+    margin: 0 auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #333; /* Dark Grey */
+  }
+
+  select,
+  textarea,
+  input {
+    width: 100%;
+    padding: 8px; /* Decreased padding */
+    margin-bottom: 15px; /* Decreased margin */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* Decreased font size */
+  }
+
+  input[type="submit"] {
+    background-color: #2196F3; /* Blue */
+    color: #fff;
+    padding: 8px 12px; /* Decreased padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; /* Decreased font size */
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0D47A1; /* Darker Blue */
+  }
+
+  center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  td {
+    padding: 8px; /* Decreased padding */
+    font-size: 1em; /* Decreased font size */
+  }
+
+  h3 {
+    text-align: center;
+    text-decoration: underline;
+    margin-top: -35px;
+    font-size: 1.5em;
+    color: #009688; /* Teal */
+  }
+</style>
+<h3><u>Add Content</u></h3><br><br><br>
+<center>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table width="100%">
+        {% for field in form %}
+            <tr>
+                <td><label>{{ field.label }}</label></td>
+                <td>{{ field }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Upload" /></td>
+        </tr>
+    </table>
+  </form>
+</center>
+{% endblock %}

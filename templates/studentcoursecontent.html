@@ -1,0 +1,105 @@
+{% extends 'studenthome.html' %}
+{% block 'body' %}
+<style>
+    h3 {
+        text-align: center;
+        text-decoration: underline;
+        margin-top: 20px; /* Adjusted margin-top for better spacing */
+        margin-bottom: 15px;
+        font-size: 1.8em; /* Increased font size */
+        color: #2196F3; /* Blue */
+    }
+    h4 {
+        margin-bottom: 20px;
+        font-size: 1.2em; /* Increased font size */
+        color: #333;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 12px; /* Increased padding */
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background-color: #90caf9; /* Light Blue */
+    }
+    input {
+        width: 15%;
+        padding: 10px;
+        margin-bottom: 15px;
+        margin-left: 80%;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input:focus {
+        outline: none;
+        border-color: #64b5f6; /* Lighter Blue */
+        box-shadow: 0 0 5px rgba(100, 181, 246, 0.5); /* Adjusted box-shadow */
+    }
+    .addbutton {
+        display: inline-block;
+        padding: 10px 16px; /* Adjusted padding */
+        background-color: #d32f2f; /* Red */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .addbutton:hover {
+        background-color: #b71c1c; /* Darker Red */
+    }
+</style>
+<h3><u>Course Content</u></h3> <!-- Removed unnecessary align attribute -->
+<br>
+<input class="form-control" id="myInput" type="text" placeholder="Course Title"><br>
+<table align="center" border="2" class="table table-striped">
+    <thead>
+        <tr bgcolor="#90caf9">
+            <th>Course code</th>
+            <th>Course title</th>
+            <th>Uploaded By</th>
+            <th>Description</th>
+            <th>Link</th>
+            <th>Image</th>
+            <th>Work Upload</th>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        {% for content in coursecontent %}
+        <tr>
+            <td>{{content.course.coursecode}}</td>
+            <td>{{content.course.coursetitle}}</td>
+            <td>{{content.faculty.facultyid}}-{{content.faculty.fullname}}</td>
+            <td>{{content.description}}</td>
+            <td>
+                <a href="{{content.link}}" target="_new">{{content.link}}</a>
+            </td>
+            <td>
+                <img src="{{content.content.url}}" width="45%" height="45%">
+            </td>
+            <td>
+                <a href="{% url 'uploadwork' %}" class="addbutton">Upload</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+{% endblock %}
